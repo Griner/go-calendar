@@ -10,7 +10,7 @@ import (
 type AppConfig struct {
 	Address string `config:"address"`
 	Port    int `config:"port"`
-	SomeServiceApiKey string `config:someserviceapikey`
+	SomeServiceApiKey string `config:"someserviceapikey"`
 	Logger  zap.Config `config:"logger"`
 }
 

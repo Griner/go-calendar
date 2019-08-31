@@ -32,7 +32,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Logger setup error: %s", err)
 	}
-	defer logger.Sync()
+	defer logger.Sync() //nolint:errcheck
 
 	logger.Info("logger construction succeeded")
 	logger.Debug(fmt.Sprintf("Config %#v\n", cfg))
