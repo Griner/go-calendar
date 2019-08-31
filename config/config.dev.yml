@@ -1,0 +1,22 @@
+address: 127.0.0.1
+port: 8889
+someserviceapikey: 0123456789ABCDEF
+logger:
+  level: debug
+  encoding: console
+  development: true
+  disableCaller: false
+  outputPaths:
+    - stdout
+  errorOutputPaths:
+    - stderr
+  encoderConfig:
+    messageKey: message
+    levelKey: level
+    levelEncoder: capital
+    timeKey: time
+    timeEncoder: iso8601
+    stacktraceKey: stacktrace
+    errorKey: error
+    callerKey: caller
+    callerEncoder: full

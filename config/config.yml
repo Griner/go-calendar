@@ -1,0 +1,19 @@
+address: 0.0.0.0
+port: 8888
+someserviceapikey: ABCDEF0123456789
+logger:
+  level: info
+  encoding: json
+  development: false
+  outputPaths:
+    - service.out.log
+  errorOutputPaths:
+    - service.err.log
+  encoderConfig:
+    messageKey: message
+    levelKey: level
+    levelEncoder: lowercase
+    timeKey: time
+    timeEncoder: iso8601
+    stacktraceKey: stacktrace
+    errorKey: error
