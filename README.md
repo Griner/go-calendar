@@ -1,3 +1,3 @@
-# go-microservice-base
+# go-calendar
 
 Homework #17 Codegen
