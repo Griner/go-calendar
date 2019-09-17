@@ -17,16 +17,16 @@ message CalendarEvent {
     CalendarEventType type = 3;
     google.protobuf.Timestamp start_time = 4;
     google.protobuf.Timestamp end_time = 5;
-  }
+}
 
-  message CalendarEventId {
-    int64 id = 1; // Unique ID number for this event
-  }
+message CalendarEventId {
+  int64 id = 1; // Unique ID number for this event
+}
 
-  message CalendarServiceError {
-    int64 code = 1;
-    string message = 2;
-  }
+message CalendarServiceError {
+  int64 code = 1;
+  string message = 2;
+}
 
 service CalendarService {
     rpc NewEvent (CalendarEvent) returns (CalendarServiceError);
