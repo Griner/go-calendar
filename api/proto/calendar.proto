@@ -1,5 +1,5 @@
 syntax = "proto3";
-package calendar;
+package grpc;
 
 import "google/protobuf/timestamp.proto";
 
@@ -19,19 +19,49 @@ message CalendarEvent {
     google.protobuf.Timestamp end_time = 5;
 }
 
-message CalendarEventId {
-  int64 id = 1; // Unique ID number for this event
-}
-
 message CalendarServiceError {
   int64 code = 1;
   string message = 2;
 }
 
+message NewCalendarEventRequest {
+  CalendarEvent event = 1;
+}
+
+message NewCalendarEventResponse {
+  CalendarServiceError error = 1;
+}
+
+message UpdateCalendarEventRequest {
+  CalendarEvent event = 1;
+}
+
+message UpdateCalendarEventResponse {
+  CalendarServiceError error = 1;
+}
+
+message GetCalendarEventRequest {
+  int64 event_id = 1;
+}
+
+message GetCalendarEventResponse {
+  CalendarEvent event = 1;
+  CalendarServiceError error = 2;
+}
+
+message DeleteCalendarEventRequest {
+  int64 event_id = 1;
+}
+
+message DeleteCalendarEventResponse {
+  CalendarServiceError error = 1;
+}
+
 service CalendarService {
-    rpc NewEvent (CalendarEvent) returns (CalendarServiceError);
-    rpc UpdateEvent (CalendarEvent) returns (CalendarServiceError);
-    rpc GetEvent (CalendarEventId) returns (CalendarEvent);
-    rpc DeleteEvent (CalendarEventId) returns (CalendarServiceError);
+    rpc NewEvent (NewCalendarEventRequest) returns (NewCalendarEventResponse);
+    rpc UpdateEvent (UpdateCalendarEventRequest) returns (UpdateCalendarEventResponse);
+    rpc GetEvent (GetCalendarEventRequest) returns (GetCalendarEventResponse);
+    // rpc GetAllEvents (?) returns (?); // todo stream
+    rpc DeleteEvent (DeleteCalendarEventRequest) returns (DeleteCalendarEventResponse);
 }
   
