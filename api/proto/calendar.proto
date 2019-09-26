@@ -29,7 +29,8 @@ message NewCalendarEventRequest {
 }
 
 message NewCalendarEventResponse {
-  CalendarServiceError error = 1;
+  CalendarEvent event = 1;
+  CalendarServiceError error = 2;
 }
 
 message UpdateCalendarEventRequest {
