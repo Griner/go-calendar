@@ -26,12 +26,13 @@ func (s *CalendarGRPCServer) NewEvent(ctx context.Context, req *NewCalendarEvent
 
 	c := context.Background()
 
-	err := s.usecase.NewEvent(c, NewCalendarEventFromGRPCCalendarEvent(req.GetEvent()))
+	event := NewCalendarEventFromGRPCCalendarEvent(req.GetEvent())
+	err := s.usecase.NewEvent(c, event)
 	if err != nil {
 		e := fmt.Errorf("NewEvent error - %s", err)
 		return &NewCalendarEventResponse{Error: &CalendarServiceError{Message: e.Error()}}, e
 	}
-	return &NewCalendarEventResponse{Error: nil}, nil
+	return &NewCalendarEventResponse{Event: NewGRPCCalendarEventFromCalendarEvent(event), Error: nil}, nil
 }
 
 func (s *CalendarGRPCServer) UpdateEvent(ctx context.Context, req *UpdateCalendarEventRequest) (*UpdateCalendarEventResponse, error) {
