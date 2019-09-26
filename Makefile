@@ -4,6 +4,7 @@ GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
+GOGENERATE=$(GOCMD) generate
 GOLINTER=golangci-lint
 BINARY_NAME=go-calendar
 
@@ -17,6 +18,9 @@ lint:
 
 test:
 	$(GOTEST) -v ./...
+
+generate:
+	$(GOGENERATE) -x ./...
 
 clean:
 	$(GOCLEAN)
