@@ -1,6 +1,7 @@
 address: 127.0.0.1
 port: 8889
 someserviceapikey: 0123456789ABCDEF
+loggerconfig: config/logger.config.dev.yml
 logger:
   level: debug
   encoding: console
