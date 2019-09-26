@@ -75,8 +75,8 @@ func init() {
 	// and all subcommands, e.g.:
 	grpcServerCmd.PersistentFlags().String("address", "127.0.0.1", "address to listen")
 	grpcServerCmd.PersistentFlags().String("port", "8888", "port to listen")
-	viper.BindPFlag("address", grpcServerCmd.PersistentFlags().Lookup("address"))
-	viper.BindPFlag("port", grpcServerCmd.PersistentFlags().Lookup("port"))
+	viper.BindPFlag("address", grpcServerCmd.PersistentFlags().Lookup("address")) //nolint:errcheck
+	viper.BindPFlag("port", grpcServerCmd.PersistentFlags().Lookup("port"))       //nolint:errcheck
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
