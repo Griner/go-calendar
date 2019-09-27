@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+
+        {
+            "name": "Debug grpcClient",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}",
+            "env": {},
+            "args": [
+                "grpcClient",
+                "--address", "127.0.0.1",
+                "--port", "8889",
+            ]
+        },
+        {
+            "name": "Debug grpcServer",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}",
+            "env": {},
+            "args": [
+                "grpcServer",
+                "--config", "config/config.dev.yml",
+                "--address", "127.0.0.1",
+                "--port", "8889",
+            ]
+        },
+    ],
+    "compounds": [
+        {
+          "name": "Server/Client",
+          "configurations": ["Debug grpcServer", "Debug grpcClient"]
+        }
+      ]
+}
