@@ -1,0 +1,8 @@
+docker cp ./localfile.sql containername:/container/path/file.sql
+docker exec -u postgresuser containername psql dbname postgresuser -f /container/path/file.sql
+
+docker exec -ti NAME_OF_CONTAINER psql -U YOUR_POSTGRES_USERNAME
+
+-- CREATE USER calendar WITH PASSWORD 'calendar';
+-- CREATE DATABASE calendar;
+-- GRANT ALL PRIVILEGES ON DATABASE calendar TO calendar;
