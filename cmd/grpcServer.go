@@ -54,8 +54,12 @@ and usage of using your command.`,
 
 		grpcServer := grpc.NewServer()
 
-		calendarRepo := repository.NewMemoryRepository()
-		calendarUsecase := usecase.NewCalendarUsecase(calendarRepo, time.Second*15)
+		// calendarRepo := repository.NewMemoryRepository()
+		calendarRepo, err := repository.NewPostgreRepository("postgres://calendar:calendar@localhost:5432/calendar")
+		if err != nil {
+			log.Fatalf("Repository error %v", err)
+		}
+		calendarUsecase := usecase.NewCalendarUsecase(calendarRepo, time.Second*150)
 		server := calendarGrpc.NewCalendarGPRCServer(logger, calendarUsecase)
 		calendarGrpc.RegisterCalendarServiceServer(grpcServer, server)
 
