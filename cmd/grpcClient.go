@@ -123,7 +123,7 @@ func init() {
 }
 
 func newContext() (ctx context.Context, cancel context.CancelFunc) {
-	// ctx, cancel = context.WithTimeout(context.Background(), time.Second)
-	ctx, cancel = context.WithCancel(context.Background())
+	ctx, cancel = context.WithTimeout(context.Background(), time.Second)
+	// ctx, cancel = context.WithCancel(context.Background())
 	return
 }

@@ -1,5 +1,6 @@
 address: 127.0.0.1
 port: 8889
+dsn: postgres://calendar:calendar@localhost:5432/calendar
 someserviceapikey: 0123456789ABCDEF
 loggerconfig: config/logger.config.dev.yml
 logger:

@@ -55,7 +55,7 @@ and usage of using your command.`,
 		grpcServer := grpc.NewServer()
 
 		// calendarRepo := repository.NewMemoryRepository()
-		calendarRepo, err := repository.NewPostgreRepository("postgres://calendar:calendar@localhost:5432/calendar")
+		calendarRepo, err := repository.NewPostgreRepository(viper.GetString("dsn"))
 		if err != nil {
 			log.Fatalf("Repository error %v", err)
 		}
