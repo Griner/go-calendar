@@ -27,16 +27,16 @@ and usage of using your command.`,
 
 		cc, err := grpc.Dial(address+":"+port, grpc.WithInsecure())
 		if err != nil {
-			log.Fatalf("could not connect: %v", err)
+			log.Fatalf("could not connect: %v\n", err)
 		}
 		defer cc.Close()
 
 		client := calendarGrpc.NewCalendarServiceClient(cc)
 
-		ctx, _ := context.WithTimeout(context.Background(), time.Second)
+		ctx, _ := newContext()
 
 		_, err = client.GetEvent(ctx, &calendarGrpc.GetCalendarEventRequest{EventId: 1})
-		fmt.Println("GetEvent error", err)
+		log.Printf("GetEvent error %v\n", err)
 
 		// 1 event
 		start, _ := ptypes.TimestampProto(time.Now())
@@ -48,9 +48,11 @@ and usage of using your command.`,
 			StartTime: start,
 			EndTime:   end,
 		}
-		ctx, _ = context.WithTimeout(context.Background(), time.Second)
+		ctx, _ = newContext()
 		responseNew, err := client.NewEvent(ctx, &calendarGrpc.NewCalendarEventRequest{Event: event1})
-
+		if err != nil {
+			log.Fatalf("NewEvent error %v\n", err)
+		}
 		fmt.Println("New Event - ", responseNew.GetEvent())
 
 		// 2 event
@@ -60,35 +62,48 @@ and usage of using your command.`,
 			StartTime: start,
 			EndTime:   end,
 		}
-		ctx, _ = context.WithTimeout(context.Background(), time.Second)
+		ctx, _ = newContext()
 		responseNew, err = client.NewEvent(ctx, &calendarGrpc.NewCalendarEventRequest{Event: event2})
-
+		if err != nil {
+			log.Fatalf("NewEvent error %v\n", err)
+		}
 		fmt.Println("New Event - ", responseNew.GetEvent())
 		event1 = responseNew.GetEvent()
 
 		// get event 1
-		ctx, _ = context.WithTimeout(context.Background(), time.Second)
+		ctx, _ = newContext()
 		responseGet, err := client.GetEvent(ctx, &calendarGrpc.GetCalendarEventRequest{EventId: event1.GetId()})
+		if err != nil {
+			log.Fatalf("GetEvent error %v\n", err)
+		}
 
 		fmt.Println("Get Event - ", responseGet.GetEvent())
 		event2 = responseNew.GetEvent()
 
 		// update event 1
 		event1.Name = "UPD: The first event. PS. *"
-		ctx, _ = context.WithTimeout(context.Background(), time.Second)
+		ctx, _ = newContext()
 		_, err = client.UpdateEvent(ctx, &calendarGrpc.UpdateCalendarEventRequest{Event: event1})
+		if err != nil {
+			log.Fatalf("UpdateEvent error %v\n", err)
+		}
 
-		ctx, _ = context.WithTimeout(context.Background(), time.Second)
+		ctx, _ = newContext()
 		responseGet, err = client.GetEvent(ctx, &calendarGrpc.GetCalendarEventRequest{EventId: event1.GetId()})
-
+		if err != nil {
+			log.Fatalf("GetEvent error %v\n", err)
+		}
 		fmt.Println("Get updated Event - ", responseGet.GetEvent())
 
-		ctx, _ = context.WithTimeout(context.Background(), time.Second)
+		ctx, _ = newContext()
 		_, err = client.DeleteEvent(ctx, &calendarGrpc.DeleteCalendarEventRequest{EventId: event2.GetId()})
-
+		if err != nil {
+			log.Fatalf("DeleteEvent error %v\n", err)
+		}
 		_, err = client.GetEvent(ctx, &calendarGrpc.GetCalendarEventRequest{EventId: event2.GetId()})
-		fmt.Println("GetEvent error", err)
-
+		if err != nil {
+			log.Fatalf("DeleteEvent error %v\n", err)
+		}
 	},
 }
 
@@ -105,4 +120,10 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// grpcClientCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+}
+
+func newContext() (ctx context.Context, cancel context.CancelFunc) {
+	// ctx, cancel = context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel = context.WithCancel(context.Background())
+	return
 }
