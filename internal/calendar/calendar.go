@@ -14,6 +14,6 @@ type CalendarEvent struct {
 	Id        int64
 	Name      string
 	Type      CalendarEvent_CalendarEventType
-	StartTime time.Time
-	EndTime   time.Time
+	StartTime time.Time `db:"start_time"`
+	EndTime   time.Time `db:"end_time"`
 }
