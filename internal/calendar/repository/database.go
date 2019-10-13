@@ -31,6 +31,7 @@ func (s *PostgreDBStorage) NewEvent(ctx context.Context, event *calendar.Calenda
 	if err != nil {
 		return err
 	}
+	defer res.Close()
 
 	if res.Next() {
 		var id int64
