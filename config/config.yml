@@ -1,6 +1,7 @@
 address: 0.0.0.0
 port: 8888
 dsn: postgres://calendar:calendar@localhost:5432/calendar
+mq: amqp://calendar:calendar@localhost:5672/calendar
 someserviceapikey: ABCDEF0123456789
 loggerconfig: config/logger.config.yml
 logger:
