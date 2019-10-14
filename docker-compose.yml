@@ -1,17 +1,32 @@
 version: '3'
 
 services:
-   db:
-     image: postgres:9
-     volumes:
-       - ./db_data:/var/lib/postgresql/data
-       - ./scripts/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
-     restart: always
-     ports:
-      - "5432:5432"
-     environment:
-       POSTGRES_USER: calendar
-       POSTGRES_PASSWORD: calendar
-       POSTGRES_DB: calendar
+  db:
+    image: postgres:9
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+      - ./scripts/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+  #  restart: always
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_USER: calendar
+      POSTGRES_PASSWORD: calendar
+      POSTGRES_DB: calendar
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: calendar
+    volumes:
+      - ./mq_data:/var/lib/rabbitmq:rw
+    # restart: always
+    ports:
+      - "5672:5672"
+      - "8081:15672"
+    environment:
+      RABBITMQ_DEFAULT_VHOST: calendar
+      RABBITMQ_DEFAULT_USER: calendar
+      RABBITMQ_DEFAULT_PASS: calendar
+
 
 
