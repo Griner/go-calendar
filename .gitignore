@@ -1,2 +1,4 @@
-/go-microservice
+/go-calendar
 /*.log
+db_data
+mq_data
