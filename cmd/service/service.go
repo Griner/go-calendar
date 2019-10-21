@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/griner/go-calendar/internal/config"
 	"log"
+
+	"github.com/griner/go-calendar/internal/config"
 )
 
 var configFile string

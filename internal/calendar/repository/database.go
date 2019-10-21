@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/griner/go-calendar/internal/calendar"
+
 	_ "github.com/jackc/pgx/stdlib"
 	"github.com/jmoiron/sqlx"
 )

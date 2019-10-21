@@ -7,10 +7,11 @@ import (
 	"net"
 	"time"
 
-	"github.com/ghodss/yaml"
 	calendarGrpc "github.com/griner/go-calendar/internal/calendar/delivery/grpc"
 	"github.com/griner/go-calendar/internal/calendar/repository"
 	"github.com/griner/go-calendar/internal/calendar/usecase"
+
+	"github.com/ghodss/yaml"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"

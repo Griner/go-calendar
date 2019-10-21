@@ -21,8 +21,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/ghodss/yaml"
 	"github.com/griner/go-calendar/internal/calendar/repository"
+
+	"github.com/ghodss/yaml"
 	"github.com/robfig/cron"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

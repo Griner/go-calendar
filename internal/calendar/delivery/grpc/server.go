@@ -4,8 +4,9 @@ import (
 	context "context"
 	fmt "fmt"
 
-	"github.com/golang/protobuf/ptypes"
 	"github.com/griner/go-calendar/internal/calendar"
+
+	"github.com/golang/protobuf/ptypes"
 	"go.uber.org/zap"
 )
 

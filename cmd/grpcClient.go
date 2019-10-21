@@ -6,11 +6,11 @@ import (
 	"log"
 	"time"
 
+	calendarGrpc "github.com/griner/go-calendar/internal/calendar/delivery/grpc"
+
 	"github.com/golang/protobuf/ptypes"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
-
-	calendarGrpc "github.com/griner/go-calendar/internal/calendar/delivery/grpc"
 )
 
 var address string
