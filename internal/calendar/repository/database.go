@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/griner/go-calendar/internal/calendar"
 	_ "github.com/jackc/pgx/stdlib"
@@ -79,6 +80,28 @@ func (s *PostgreDBStorage) GetEvent(ctx context.Context, eventId int64) (*calend
 func (s *PostgreDBStorage) GetAllEvents(ctx context.Context) ([]*calendar.CalendarEvent, error) {
 	getAllEventsSql := "SELECT * FROM events"
 	res, err := s.db.QueryxContext(ctx, getAllEventsSql)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Close()
+
+	events := []*calendar.CalendarEvent{}
+
+	for res.Next() {
+		event := &calendar.CalendarEvent{}
+		err = res.StructScan(event)
+		if err != nil {
+			return events, err
+		}
+		events = append(events, event)
+	}
+
+	return events, nil
+}
+
+func (s *PostgreDBStorage) GetEventsByTime(ctx context.Context, t1, t2 time.Time) ([]*calendar.CalendarEvent, error) {
+	getEventsSql := "SELECT * FROM events WHERE start_time BETWEEN $1 AND $2"
+	res, err := s.db.QueryxContext(ctx, getEventsSql, t1, t2)
 	if err != nil {
 		return nil, err
 	}

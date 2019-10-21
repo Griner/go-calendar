@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/griner/go-calendar/internal/calendar"
 )
@@ -93,4 +94,8 @@ func (s *MemoryStorage) GetAllEvents(ctx context.Context) (events []*calendar.Ca
 	}
 
 	return
+}
+
+func (s *MemoryStorage) GetEventsByTime(ctx context.Context, t1, t2 time.Time) (events []*calendar.CalendarEvent, err error) {
+	return nil, fmt.Errorf("Not implemented")
 }

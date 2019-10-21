@@ -102,7 +102,7 @@ and usage of using your command.`,
 		}
 		_, err = client.GetEvent(ctx, &calendarGrpc.GetCalendarEventRequest{EventId: event2.GetId()})
 		if err != nil {
-			log.Fatalf("DeleteEvent error %v\n", err)
+			log.Fatalf("GetEvent error %v\n", err)
 		}
 	},
 }
