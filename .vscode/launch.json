@@ -33,11 +33,43 @@
                 "--port", "8889",
             ]
         },
+        {
+            "name": "Debug eventNotifierWorker",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}",
+            "env": {},
+            "args": [
+                "eventNotifierWorker",
+                "--config", "config/config.dev.yml",
+            ]
+        },
+        {
+            "name": "Debug eventNotifier",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}",
+            "env": {},
+            "args": [
+                "eventNotifier",
+                "--config", "config/config.dev.yml",
+            ]
+        },
     ],
     "compounds": [
         {
           "name": "Server/Client",
           "configurations": ["Debug grpcServer", "Debug grpcClient"]
+        },
+        {
+          "name": "MQ Producer/Consumer",
+          "configurations": ["Debug eventNotifierWorker", "Debug eventNotifier"]
+        },
+        {
+          "name": "All",
+          "configurations": ["Debug grpcServer", "Debug grpcClient", "Debug eventNotifierWorker", "Debug eventNotifier"]
         }
       ]
 }
