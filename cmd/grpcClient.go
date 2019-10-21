@@ -39,8 +39,8 @@ and usage of using your command.`,
 		log.Printf("GetEvent error %v\n", err)
 
 		// 1 event
-		start, _ := ptypes.TimestampProto(time.Now())
-		end, _ := ptypes.TimestampProto(time.Now().Add(time.Hour))
+		start, _ := ptypes.TimestampProto(time.Now().UTC().Add(20 * time.Minute))
+		end, _ := ptypes.TimestampProto(time.Now().UTC().Add(time.Hour))
 		// TODO
 		event1 := &calendarGrpc.CalendarEvent{
 			Name:      "The first event",

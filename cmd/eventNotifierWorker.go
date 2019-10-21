@@ -96,7 +96,7 @@ to quickly create a Cobra application.`,
 			logger.Info("Scan")
 
 			ctx, _ := context.WithTimeout(context.Background(), time.Second*5)
-			t1 := time.Now()
+			t1 := time.Now().UTC()
 			events, err := calendarRepo.GetEventsByTime(ctx, t1, t1.Add(time.Hour))
 			// events, err := calendarRepo.GetAllEvents(ctx)
 			if err != nil {

@@ -101,7 +101,7 @@ func (s *PostgreDBStorage) GetAllEvents(ctx context.Context) ([]*calendar.Calend
 
 func (s *PostgreDBStorage) GetEventsByTime(ctx context.Context, t1, t2 time.Time) ([]*calendar.CalendarEvent, error) {
 	getEventsSql := "SELECT * FROM events WHERE start_time BETWEEN $1 AND $2"
-	res, err := s.db.QueryxContext(ctx, getEventsSql, t1, t2)
+	res, err := s.db.QueryxContext(ctx, getEventsSql, t1.UTC(), t2.UTC())
 	if err != nil {
 		return nil, err
 	}
