@@ -29,7 +29,7 @@ func main() {
 	}
 
 	// load log config
-	logger, err:= config.GetLogger(&cfg.Logger)
+	logger, err := config.GetLogger(&cfg.Logger)
 	if err != nil {
 		log.Fatalf("Logger setup error: %s", err)
 	}
