@@ -7,6 +7,7 @@ import (
 	"net"
 	"time"
 
+	"github.com/griner/go-calendar/internal/calendar"
 	calendarGrpc "github.com/griner/go-calendar/internal/calendar/delivery/grpc"
 	"github.com/griner/go-calendar/internal/calendar/repository"
 	"github.com/griner/go-calendar/internal/calendar/usecase"
@@ -56,10 +57,22 @@ and usage of using your command.`,
 		grpcServer := grpc.NewServer()
 
 		// calendarRepo := repository.NewMemoryRepository()
-		calendarRepo, err := repository.NewPostgreRepository(viper.GetString("dsn"))
-		if err != nil {
-			log.Fatalf("Repository error %v", err)
+		// calendarRepo, err := repository.NewPostgreRepository(viper.GetString("dsn"))
+		// if err != nil {
+		// 	log.Fatalf("Repository error %v", err)
+		// }
+
+		var calendarRepo calendar.Repository
+		// calendarRepo := repository.NewMemoryRepository()
+		err = fmt.Errorf("")
+		for err != nil {
+			calendarRepo, err = repository.NewPostgreRepository(viper.GetString("dsn"))
+			if err != nil {
+				log.Printf("Repository error %v. Retry\n", err)
+			}
+			time.Sleep(5 * time.Second)
 		}
+
 		calendarUsecase := usecase.NewCalendarUsecase(calendarRepo, time.Second*150)
 		server := calendarGrpc.NewCalendarGPRCServer(logger, calendarUsecase)
 		calendarGrpc.RegisterCalendarServiceServer(grpcServer, server)

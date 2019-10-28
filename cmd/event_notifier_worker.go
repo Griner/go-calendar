@@ -21,6 +21,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/griner/go-calendar/internal/calendar"
 	"github.com/griner/go-calendar/internal/calendar/repository"
 
 	"github.com/ghodss/yaml"
@@ -69,9 +70,20 @@ to quickly create a Cobra application.`,
 		logger.Info("logger construction succeeded")
 		logger.Debug(fmt.Sprintf("Config %#v\n", viper.AllSettings()))
 
-		calendarRepo, err := repository.NewPostgreRepository(viper.GetString("dsn"))
-		if err != nil {
-			failOnError(err, "Repository error")
+		// calendarRepo, err := repository.NewPostgreRepository(viper.GetString("dsn"))
+		// if err != nil {
+		// 	failOnError(err, "Repository error")
+		// }
+
+		var calendarRepo calendar.Repository
+		// calendarRepo := repository.NewMemoryRepository()
+		err = fmt.Errorf("")
+		for err != nil {
+			calendarRepo, err = repository.NewPostgreRepository(viper.GetString("dsn"))
+			if err != nil {
+				log.Printf("Repository error %v. Retry\n", err)
+			}
+			time.Sleep(5 * time.Second)
 		}
 
 		conn, err := amqp.Dial(viper.GetString("mq"))
