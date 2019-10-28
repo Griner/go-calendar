@@ -16,7 +16,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
-    hostname: calendar
+    # hostname: calendar
     volumes:
       - ./mq_data:/var/lib/rabbitmq:rw
     # restart: always
@@ -28,5 +28,29 @@ services:
       RABBITMQ_DEFAULT_USER: calendar
       RABBITMQ_DEFAULT_PASS: calendar
 
+  server:
+    image: go-calendar-server
+    volumes:
+      - ./config:/config
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8889:8889"
 
+  mqworker:
+    image: go-calendar-mqworker
+    volumes:
+      - ./config:/config
+    restart: always
+    depends_on:
+      - db
+      - rabbitmq
 
+  notifier:
+    image: go-calendar-notifier
+    volumes:
+      - ./config:/config
+    restart: always
+    depends_on:
+      - rabbitmq

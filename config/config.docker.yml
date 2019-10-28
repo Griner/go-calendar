@@ -1,0 +1,25 @@
+address: 0.0.0.0
+port: 8889
+dsn: postgres://calendar:calendar@db:5432/calendar
+mq: amqp://calendar:calendar@rabbitmq:5672/calendar
+someserviceapikey: 0123456789ABCDEF
+loggerconfig: config/logger.config.dev.yml
+logger:
+  level: debug
+  encoding: console
+  development: true
+  disableCaller: false
+  outputPaths:
+    - stdout
+  errorOutputPaths:
+    - stderr
+  encoderConfig:
+    messageKey: message
+    levelKey: level
+    levelEncoder: capital
+    timeKey: time
+    timeEncoder: iso8601
+    stacktraceKey: stacktrace
+    errorKey: error
+    callerKey: caller
+    callerEncoder: full
